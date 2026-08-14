@@ -1,0 +1,322 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'Persian';
+  src: url('./fonts/ArabDances.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --font-persian: 'Persian', serif;
+  --font-cormorant: var(--font-cormorant), 'Cormorant Garamond', serif;
+  --font-plus-jakarta: var(--font-plus-jakarta), 'Plus Jakarta Sans', sans-serif;
+  --font-italiana: var(--font-italiana), 'Italiana', serif;
+  
+  --color-canvas: var(--canvas-bg);
+  --color-surface: var(--surface-card);
+  --color-accent: var(--primary-accent);
+  --color-text-primary: var(--text-primary);
+  --color-ambient: var(--ambient-glow);
+}
+
+:root {
+  transition: background-color 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+              color 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+              border-color 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Tri-State Themes */
+:root[data-theme="morning"], :root:not([data-theme]) {
+  --canvas-bg: #F7F6F2;
+  --surface-card: rgba(255, 255, 255, 0.85);
+  --primary-accent: #B89758;
+  --text-primary: #121110;
+  --ambient-glow: rgba(216, 180, 110, 0.15);
+}
+
+:root[data-theme="dusk"] {
+  --canvas-bg: #221F1C;
+  --surface-card: rgba(45, 39, 34, 0.7);
+  --primary-accent: #E5A93C;
+  --text-primary: #F5EFEB;
+  --ambient-glow: rgba(229, 169, 60, 0.2);
+}
+
+:root[data-theme="night"] {
+  --canvas-bg: #0A0A0A;
+  --surface-card: rgba(18, 18, 18, 0.75);
+  --primary-accent: #D4AF37;
+  --text-primary: #FFFFFF;
+  --ambient-glow: rgba(212, 175, 55, 0.12);
+}
+
+body {
+  background-color: var(--canvas-bg);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  font-family: var(--font-plus-jakarta), sans-serif;
+  letter-spacing: 0.05em;
+}
+
+.glass-panel {
+  background: var(--surface-card);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(212, 175, 55, 0.12);
+  box-shadow: 
+    0 4px 6px -1px rgba(0, 0, 0, 0.03),
+    0 10px 15px -3px rgba(0, 0, 0, 0.05),
+    0 20px 25px -5px rgba(0, 0, 0, 0.02),
+    0 0 2px rgba(212, 175, 55, 0.1);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.gold-glow {
+  text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+}
+
+/* Scroll Reveal System */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Reveal from left */
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-60px);
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Reveal from right */
+.reveal-right {
+  opacity: 0;
+  transform: translateX(60px);
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-left.reveal-active,
+.reveal-right.reveal-active {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Reveal scale */
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.92);
+  transition: opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-scale.reveal-active {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.delay-100 { transition-delay: 100ms; }
+.delay-200 { transition-delay: 200ms; }
+.delay-300 { transition-delay: 300ms; }
+.delay-400 { transition-delay: 400ms; }
+.delay-500 { transition-delay: 500ms; }
+.delay-600 { transition-delay: 600ms; }
+
+/* Dropcap styling */
+.dropcap::first-letter {
+  font-family: var(--font-persian), serif;
+  font-size: 3.5rem;
+  float: left;
+  line-height: 0.85;
+  margin-right: 0.15em;
+  color: var(--primary-accent);
+}
+
+/* Hover glow effects */
+.gold-card-hover {
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.gold-card-hover:hover {
+  border-color: rgba(212, 175, 55, 0.4);
+  box-shadow: 0 15px 40px -10px rgba(212, 175, 55, 0.15);
+  transform: translateY(-4px);
+}
+
+/* Animated gold underline */
+.gold-underline {
+  position: relative;
+  display: inline-block;
+}
+.gold-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--primary-accent);
+  transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.gold-underline:hover::after {
+  width: 100%;
+}
+
+/* Stat counter shimmer */
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.stat-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--primary-accent) 0%,
+    rgba(255, 240, 180, 0.95) 40%,
+    var(--primary-accent) 60%,
+    rgba(212, 175, 55, 0.8) 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s linear infinite;
+}
+
+/* Gold particle float keyframes */
+@keyframes floatParticle {
+  0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.4; }
+  50% { transform: translateY(-20px) rotate(180deg); opacity: 0.9; }
+}
+
+/* Architectural section clip-path wipe */
+@keyframes clipWipeIn {
+  from { clip-path: inset(0 100% 0 0); }
+  to   { clip-path: inset(0 0% 0 0); }
+}
+
+.clip-wipe-in {
+  animation: clipWipeIn 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Portal section hover expand */
+.portal-panel {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  transition: flex 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+
+.portal-panel:hover {
+  flex: 1.4;
+}
+
+.portal-panel .portal-img {
+  transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.portal-panel:hover .portal-img {
+  transform: scale(1.08);
+}
+
+.portal-panel .portal-arrow {
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.5s ease;
+  transform: translateX(0) scale(1);
+  opacity: 0.7;
+}
+
+.portal-panel:hover .portal-arrow {
+  transform: translateX(8px) scale(1.3);
+  opacity: 1;
+}
+
+.portal-panel .portal-overlay {
+  transition: opacity 0.6s ease;
+}
+
+.portal-panel:hover .portal-overlay {
+  opacity: 0.5;
+}
+
+/* Property card thumbnail mini-carousel */
+.mini-carousel {
+  display: flex;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Card slide-up CTA */
+.card-cta-panel {
+  transform: translateY(100%);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.group:hover .card-cta-panel {
+  transform: translateY(0);
+}
+
+/* Section divider gold line */
+.section-divider {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--primary-accent), transparent);
+}
+
+/* Number counter animation */
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.counter-animate {
+  animation: countUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Section transition gradient overlap */
+.section-fade-overlap {
+  margin-top: -80px;
+  padding-top: 80px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Ambient orb glow — used in the global glow layer (no overflow context needed) */
+.ambient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  opacity: 0.18;
+  animation: floatParticle 8s ease-in-out infinite;
+  background: var(--primary-accent);
+}
+
+/* Section soft transitions — use instead of hard bg-canvas */
+.section-transparent {
+  background: transparent;
+  position: relative;
+  z-index: 1;
+}
+
+/* Horizontal gold rule with text */
+.gold-rule {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.gold-rule::before,
+.gold-rule::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--primary-accent), transparent);
+}
