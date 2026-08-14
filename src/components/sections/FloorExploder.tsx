@@ -19,7 +19,7 @@ export default function FloorExploder() {
         <div className="space-y-6 reveal-on-scroll">
           <span className="text-xs uppercase tracking-[0.3em] text-accent font-plus-jakarta">Structure Analysis</span>
           <h2 className="font-cormorant text-text-primary" style={{ fontSize: "clamp(1.75rem, 3.5vw + 0.5rem, 3rem)" }}>
-            Isometric Floor <span className="font-persian text-accent normal-case tracking-normal block mt-1" style={{ fontSize: "1.25em" }}>deconstruction</span>
+            Isometric Floor <span className="font-persian text-accent normal-case tracking-normal block mt-1" style={{ fontSize: "1.25em" }}>Deconstruction</span>
           </h2>
           <p className="font-plus-jakarta text-xs text-text-primary/70 leading-relaxed font-light">
             Deconstruct our premier architecture. Click on any floor tier or scroll through the section to separate architectural levels and explore specifications, suites, and waterfront features.

@@ -18,7 +18,7 @@ export default function FlagshipShowcase() {
             Pinnacle Real Estate
           </span>
           <h2 className="font-cormorant text-text-primary leading-none" style={{ fontSize: "clamp(1.75rem, 3.5vw + 0.5rem, 3rem)" }}>
-            Flagship <span className="font-persian text-accent normal-case tracking-normal block mt-1" style={{ fontSize: "1.3em" }}>curation</span>
+            Flagship <span className="font-persian text-accent normal-case tracking-normal mt-1" style={{ fontSize: "1.3em" }}>Curation</span>
           </h2>
           <div className="section-divider mx-auto" />
           
