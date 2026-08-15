@@ -29,9 +29,6 @@ export const metadata: Metadata = {
   title: "Elysia Properties Dubai | Ultra-Luxury Real Estate",
   description: "Experience beyond-horizon architecture, private Marina docks, and bespoke sky lounge penthouses with Elysia Properties Dubai. Dynamic tri-state luxury curation.",
   keywords: "Dubai Real Estate, Luxury Mansions, Palm Jumeirah, Sky Lounge Penthouse, Elysia Properties, Private Desk",
-  icons: {
-    icon: "/icon",
-  },
 };
 
 export default function RootLayout({
