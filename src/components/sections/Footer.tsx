@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import Link from "next/link";
-import { Landmark } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -9,8 +8,10 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 md:px-12 grid grid-cols-1 md:grid-cols-4 gap-12">
         {/* Brand Column */}
         <div className="space-y-4">
-          <Link href="/" className="flex items-center space-x-2">
-            <Landmark className="w-5 h-5 text-accent" />
+          <Link href="/" className="flex items-center space-x-2 group">
+            <div className="w-8 h-8 rounded-full border border-accent flex items-center justify-center transition-colors duration-300 group-hover:bg-accent/10">
+              <span className="font-italiana text-sm text-accent font-semibold">E</span>
+            </div>
             <span className="font-italiana text-lg text-text-primary tracking-widest font-semibold uppercase">
               Elysia
             </span>

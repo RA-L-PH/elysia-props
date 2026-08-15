@@ -1,28 +1,19 @@
 "use client";
-import React, { useRef } from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ArrowLeft } from "lucide-react";
-import { useParallax } from "@/hooks/useParallax";
 
 export default function PrivatePortals() {
-  const portalsRef = useRef<HTMLDivElement>(null);
-
-  // Parallax rates: Left moves slower, Right moves faster
-  const portalLeftOffset = useParallax(portalsRef, -0.06);
-  const portalRightOffset = useParallax(portalsRef, -0.12);
-
   return (
     <section
-      ref={portalsRef}
       className="relative z-[1] flex flex-col md:flex-row h-auto md:h-[70vh] min-h-[500px] overflow-hidden select-none reveal-on-scroll"
     >
       {/* ── Portfolio Portal ── */}
-      <Link href="/properties" className="portal-panel w-full md:w-1/2 min-h-[350px] md:min-h-0 group relative overflow-hidden flex flex-col justify-end p-8 md:p-14">
+      <Link href="/properties" className="portal-panel w-full md:w-1/2 min-h-[350px] md:min-h-0 group relative overflow-hidden flex flex-col justify-end p-8 md:p-14 border-b md:border-b-0 md:border-r border-accent/20">
         {/* Parallax Image */}
         <div
-          className="portal-img absolute inset-[-10%]"
-          style={{ transform: `translateY(${portalLeftOffset}px) scale(1)`, willChange: "transform" }}
+          className="portal-img absolute inset-0"
         >
           <Image src="/images/prop4.jpg" alt="Portfolio" fill className="object-cover" unoptimized />
         </div>
@@ -33,7 +24,7 @@ export default function PrivatePortals() {
           <span className="text-[10px] uppercase tracking-[0.35em] text-accent font-plus-jakarta font-semibold mb-3 block">
             01 / Portfolio
           </span>
-          <h3 className="font-cormorant text-text-primary leading-tight mb-4" style={{ fontSize: "clamp(1.75rem, 3vw + 0.5rem, 2.75rem)" }}>
+          <h3 className="font-cormorant text-text-primary mb-4 leading-tight" style={{ fontSize: "clamp(1.75rem, 3vw + 0.5rem, 2.75rem)" }}>
             The Complete<br />
             <em className="font-persian text-accent not-italic">Collection</em>
           </h3>
@@ -51,15 +42,11 @@ export default function PrivatePortals() {
         </div>
       </Link>
 
-      {/* Middle gold dividing line */}
-      <div className="hidden md:block absolute top-0 bottom-0 left-1/2 w-[1px] bg-accent/20 z-40 pointer-events-none" />
-
       {/* ── Private Advisory Desk Portal ── */}
       <Link href="/contact" className="portal-panel w-full md:w-1/2 min-h-[350px] md:min-h-0 group relative overflow-hidden flex flex-col justify-end p-8 md:p-14 items-end text-right">
         {/* Parallax Image */}
         <div
-          className="portal-img absolute inset-[-10%]"
-          style={{ transform: `translateY(${portalRightOffset}px) scale(1)`, willChange: "transform" }}
+          className="portal-img absolute inset-0"
         >
           <Image src="/images/seahorse3.jpg" alt="Private Desk" fill className="object-cover" unoptimized />
         </div>

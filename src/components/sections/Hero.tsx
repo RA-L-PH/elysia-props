@@ -1,7 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { Compass } from "lucide-react";
 import { BG_VIEWS } from "@/lib/constants";
 
 interface Props {
@@ -28,8 +27,7 @@ export default function Hero({ scrollY, mousePos }: Props) {
           className="absolute inset-0 transition-opacity duration-[1200ms] ease-in-out"
           style={{
             opacity: activeViewIndex === idx ? 0.95 : 0,
-            transform: `translate3d(${mousePos.x * -10}px, ${scrollY * 0.08 + mousePos.y * -8}px, 0) scale(1.18)`,
-            willChange: "transform",
+            transform: "translate3d(0, 0, 0) scale(1)",
             zIndex: 0,
           }}
         >
@@ -45,12 +43,10 @@ export default function Hero({ scrollY, mousePos }: Props) {
         </div>
       ))}
 
-      {/* ── Foreground depth layer — fastest parallax rate ── */}
+      {/* ── Foreground depth layer — always static ── */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          transform: `translate3d(${mousePos.x * -18}px, ${scrollY * 0.16 + mousePos.y * -14}px, 0) scale(1.12)`,
-          willChange: "transform",
           zIndex: 10,
         }}
       >
@@ -68,7 +64,7 @@ export default function Hero({ scrollY, mousePos }: Props) {
           mixBlendMode: "overlay",
         }}
       >
-        <Image src="/images/skyline.jpg" alt="" fill sizes="100vw" className="object-cover" unoptimized />
+        <Image src="/images/skyline.jpg" alt="" fill sizes="100vw" className="object-cover" priority unoptimized />
       </div>
 
       {/* ── Vignette + fade-to-canvas ── */}
@@ -114,28 +110,9 @@ export default function Hero({ scrollY, mousePos }: Props) {
         </h1>
       </div>
 
-      {/* ── Rotating compass ── */}
-      <div
-        className="absolute left-10 md:left-20 bottom-10 z-30 hidden lg:flex items-center justify-center pointer-events-none"
-        style={{
-          transform: `rotate(${scrollY * 0.15 + mousePos.x * 45}deg) scale(0.8)`,
-          willChange: "transform",
-        }}
-      >
-        <div className="w-16 h-16 rounded-full border border-accent/30 flex items-center justify-center relative bg-canvas/40 backdrop-blur-sm">
-          <Compass className="w-5 h-5 text-accent/80 animate-pulse" />
-          <span className="absolute text-[7px] tracking-[0.2em] font-plus-jakarta text-accent/50 top-1">N</span>
-          <span className="absolute text-[7px] tracking-[0.2em] font-plus-jakarta text-accent/50 bottom-1">S</span>
-        </div>
-      </div>
-
-      {/* ── Property label badge — floats opposite to mouse ── */}
+      {/* ── Property label badge — stays static relative to section ── */}
       <div
         className="absolute bottom-28 md:bottom-10 right-4 left-4 md:left-auto md:right-20 z-30 flex flex-col items-center md:items-end text-center md:text-right bg-canvas/60 backdrop-blur-md p-3 md:p-4 rounded border border-accent/15 scale-90 md:scale-100"
-        style={{
-          transform: `translate3d(${mousePos.x * -14}px, ${mousePos.y * -14}px, 0)`,
-          willChange: "transform",
-        }}
       >
         <span className="text-[8px] uppercase tracking-[0.3em] text-accent font-plus-jakarta font-bold mb-1">
           Active Horizon

@@ -292,7 +292,7 @@ export default function Properties() {
                   sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   className="object-cover transition-transform duration-700 ease-out group-hover:scale-108"
                 />
-                <span className="absolute top-4 left-4 glass-panel px-3 py-1 text-[9px] font-plus-jakarta tracking-widest text-white uppercase bg-black/45 rounded">
+                <span className="absolute top-4 left-4 z-30 bg-canvas/90 backdrop-blur-md px-3 py-1 text-[9px] font-plus-jakarta tracking-widest text-accent uppercase font-bold rounded border border-accent/20">
                   {p.handover}
                 </span>
               </div>
@@ -324,16 +324,31 @@ export default function Properties() {
                   </div>
                 </div>
 
-                {/* Price to CTA Switcher */}
-                <div className="flex justify-between items-center h-10 overflow-hidden relative">
+                {/* MOBILE ONLY: Static Price & CTA Row */}
+                <div className="md:hidden flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 pt-2">
+                  <div className="flex flex-col justify-center">
+                    <p className="text-[9px] tracking-widest font-plus-jakarta text-text-primary/50 uppercase">Starting Price</p>
+                    <span className="font-italiana text-lg text-accent font-semibold">
+                      {currencySymbols[currency]} {formatPrice(p.priceAED, currency)}
+                    </span>
+                  </div>
+                  <Link
+                    href="/contact"
+                    className="w-full sm:w-auto flex items-center justify-between bg-accent text-canvas px-4 py-2.5 rounded text-[10px] font-plus-jakarta uppercase tracking-widest transition-colors duration-300 hover:bg-accent/90"
+                  >
+                    <span>Request Private Desk</span>
+                    <ArrowUpRight className="w-4 h-4 ml-2" />
+                  </Link>
+                </div>
+
+                {/* DESKTOP ONLY: Absolute Slide-Up Hover Switcher */}
+                <div className="hidden md:flex justify-between items-center h-10 overflow-hidden relative">
                   <div className="flex flex-col justify-center h-full transition-transform duration-500 group-hover:-translate-y-full">
                     <p className="text-[9px] tracking-widest font-plus-jakarta text-text-primary/50 uppercase">Starting Price</p>
                     <span className="font-italiana text-lg text-accent font-semibold">
                       {currencySymbols[currency]} {formatPrice(p.priceAED, currency)}
                     </span>
                   </div>
-                  
-                  {/* Book Private Viewing Slide CTA */}
                   <Link
                     href="/contact"
                     className="absolute inset-0 flex items-center justify-between bg-accent text-canvas px-4 rounded text-[10px] font-plus-jakarta uppercase tracking-widest transition-all duration-500 translate-y-full group-hover:translate-y-0"

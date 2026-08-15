@@ -33,46 +33,17 @@ export default function FlagshipCard({ card, currency, delayClass, offset, paral
   const [hovered, setHovered] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
 
-  // Inner image moves at its own parallax rate
-  const imgOffset = useParallax(cardRef, parallaxSpeed);
-
   const fmt = (p: number) =>
-    `${SYMBOLS[currency]}${Math.round(p * RATES[currency]).toLocaleString()}`;
-
-  const handleTilt = (e: React.MouseEvent<HTMLDivElement>) => {
-    const el = e.currentTarget;
-    const r = el.getBoundingClientRect();
-    const x = e.clientX - r.left;
-    const y = e.clientY - r.top;
-    el.style.transform = `perspective(1000px) rotateX(${(r.height / 2 - y) / 15}deg) rotateY(${
-      (x - r.width / 2) / 15
-    }deg) scale3d(1.02,1.02,1.02)`;
-    const sheen = el.querySelector(".card-sheen") as HTMLElement;
-    if (sheen)
-      sheen.style.background = `radial-gradient(circle at ${(x / r.width) * 100}% ${
-        (y / r.height) * 100
-      }%, rgba(212,175,55,0.2) 0%, transparent 60%)`;
-  };
-
-  const resetTilt = (e: React.MouseEvent<HTMLDivElement>) => {
-    e.currentTarget.style.transform =
-      "perspective(1000px) rotateX(0) rotateY(0) scale3d(1,1,1)";
-    const sheen = e.currentTarget.querySelector(".card-sheen") as HTMLElement;
-    if (sheen) sheen.style.background = "transparent";
-  };
+    `${SYMBOLS[currency]}${Math.round(p * RATES[currency]).toLocaleString("en-US")}`;
 
   return (
     <div
       ref={cardRef}
-      onMouseMove={handleTilt}
-      onMouseLeave={(e) => { resetTilt(e); setHovered(false); }}
+      onMouseLeave={() => setHovered(false)}
       onMouseEnter={() => setHovered(true)}
-      className={`glass-panel rounded-xl overflow-hidden relative cursor-pointer transition-shadow duration-300 shadow-2xl border border-accent/10 ${delayClass} reveal-on-scroll gold-card-hover`}
-      style={{ transformStyle: "preserve-3d", ...(offset ? { marginTop: offset } : {}) }}
+      className={`glass-panel rounded-xl overflow-hidden relative cursor-pointer transition-all duration-500 shadow-2xl border border-accent/10 ${delayClass} reveal-on-scroll gold-card-hover`}
+      style={{ ...(offset ? { marginTop: offset } : {}) }}
     >
-      {/* Gold sheen overlay */}
-      <div className="card-sheen absolute inset-0 z-20 pointer-events-none transition-opacity duration-300 rounded-xl" />
-
       {/* Private Access badge */}
       {card.tag && (
         <div className="absolute top-4 right-4 z-30 bg-canvas/90 backdrop-blur-md px-2.5 py-1 rounded border border-accent/30 text-[9px] uppercase tracking-widest text-accent font-bold flex items-center space-x-1">
@@ -83,12 +54,11 @@ export default function FlagshipCard({ card, currency, delayClass, offset, paral
 
       {/* ── Image area ─────────────────────────────────────────── */}
       <div className="relative h-72 w-full overflow-hidden">
-        {/* Container parallax wrapper — clips the moving image */}
+        {/* Container wrapper — clips the zooming image */}
         <div
-          className="absolute inset-0"
+          className="absolute inset-0 transition-transform duration-500 ease-out"
           style={{
-            transform: `translateY(${imgOffset}px) scale(1.15)`,
-            willChange: "transform",
+            transform: `scale(${hovered ? 1.05 : 1})`,
           }}
         >
           {card.images.map((src, i) => (

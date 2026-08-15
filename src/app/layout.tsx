@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/context/ThemeContext";
 import Navbar from "@/components/Navbar";
 import CustomCursor from "@/components/CustomCursor";
 import Footer from "@/components/sections/Footer";
+import SmoothScroll from "@/components/SmoothScroll";
 import "./globals.css";
 
 const cormorant = Cormorant_Garamond({
@@ -28,6 +29,9 @@ export const metadata: Metadata = {
   title: "Elysia Properties Dubai | Ultra-Luxury Real Estate",
   description: "Experience beyond-horizon architecture, private Marina docks, and bespoke sky lounge penthouses with Elysia Properties Dubai. Dynamic tri-state luxury curation.",
   keywords: "Dubai Real Estate, Luxury Mansions, Palm Jumeirah, Sky Lounge Penthouse, Elysia Properties, Private Desk",
+  icons: {
+    icon: "/icon",
+  },
 };
 
 export default function RootLayout({
@@ -42,12 +46,14 @@ export default function RootLayout({
     >
       <body className="min-h-screen bg-canvas text-text-primary transition-colors duration-500 flex flex-col">
         <ThemeProvider>
-          <CustomCursor />
-          <Navbar />
-          <main className="flex-grow pt-20">
-            {children}
-          </main>
-          <Footer />
+          <SmoothScroll>
+            <CustomCursor />
+            <Navbar />
+            <main className="flex-grow pt-20">
+              {children}
+            </main>
+            <Footer />
+          </SmoothScroll>
         </ThemeProvider>
       </body>
     </html>

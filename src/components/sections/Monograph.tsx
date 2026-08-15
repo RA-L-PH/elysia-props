@@ -13,35 +13,18 @@ interface Props {
 export default function Monograph({ mousePos }: Props) {
   const monographRef = useRef<HTMLDivElement>(null);
 
-  // ─── UNIQUE PARALLAX SPEEDS FOR EVERY COMPONENT ───
-  // Text content block drifts gently
-  const textOffset = useParallax(monographRef, -0.04);
-  
-  // Image 1 (Main facade) has its own speed
-  const img1ContainerOffset = useParallax(monographRef, -0.12);
-  const img1InnerOffset = useParallax(monographRef, 0.05);
-
-  // Image 2 (Detail shot) moves at a completely different rate
-  const img2ContainerOffset = useParallax(monographRef, -0.22);
-  const img2InnerOffset = useParallax(monographRef, 0.08);
-
-  // Pill-shaped stats/badges float independently
-  const badge1Offset = useParallax(monographRef, -0.08);
-  const badge2Offset = useParallax(monographRef, -0.16);
+  // ─── 4 DISTINCT SCROLL SPEEDS FOR LAYERED 3D DEPTH WITH BOUNDARIES ───
+  const img1Offset = useParallax(monographRef, -0.06, 25);   // Clamps at [-25px, 25px]
+  const badge1Offset = useParallax(monographRef, -0.10, 40);  // Clamps at [-40px, 40px]
+  const img2Offset = useParallax(monographRef, -0.14, 55);   // Clamps at [-55px, 55px]
+  const badge2Offset = useParallax(monographRef, -0.18, 70);  // Clamps at [-70px, 70px]
 
   return (
     <section ref={monographRef} className="relative z-[1] py-20 md:py-36 px-6 md:px-12 w-full overflow-visible">
       <div className="relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-start">
         
         {/* LEFT COLUMN: Editorial Brand Philosophy */}
-        <div
-          className="space-y-8 reveal-on-scroll w-full"
-          style={{ 
-            transform: `translate3d(0, ${textOffset}px, 0)`,
-            willChange: "transform",
-            transition: "transform 0.1s ease-out" 
-          }}
-        >
+        <div className="space-y-8 reveal-on-scroll w-full">
           <div className="space-y-2">
             <span className="text-[10px] uppercase tracking-[0.35em] text-accent font-plus-jakarta font-semibold">
               Est. 2009 · Dubai
@@ -86,54 +69,28 @@ export default function Monograph({ mousePos }: Props) {
         {/* RIGHT COLUMN: Asymmetric, Independently Floating Parallax Containers */}
         <div className="relative w-full h-[550px] md:h-[680px] flex items-center justify-center lg:block overflow-visible mt-10 lg:mt-0">
           
-          {/* IMAGE CONTAINER 1: Main Large Facade (Moves at unique speed) */}
+          {/* IMAGE CONTAINER 1: Main Large Facade (Deepest Background) */}
           <div
-            className="absolute left-0 top-0 w-[70%] md:w-[75%] h-[75%] rounded-2xl overflow-hidden border border-accent/20 shadow-2xl transition-all duration-200"
-            style={{ 
-              transform: `translate3d(0, ${img1ContainerOffset}px, 0)`,
-              willChange: "transform" 
+            className="absolute left-0 top-0 w-[70%] md:w-[75%] h-[75%] rounded-2xl overflow-hidden border border-accent/20 shadow-2xl transition-transform duration-200 ease-out"
+            style={{
+              transform: `translate3d(0, ${img1Offset}px, 0)`,
+              willChange: "transform",
+              zIndex: 1,
             }}
           >
-            <div
-              className="absolute inset-[-20%] transition-transform duration-100 ease-out"
-              style={{ 
-                transform: `translate3d(0, ${img1InnerOffset}px, 0) scale(1.2)`,
-                willChange: "transform" 
-              }}
-            >
+            <div className="absolute inset-0">
               <Image src="/images/prop7.jpg" alt="Dubai luxury villa facade" fill sizes="50vw" className="object-cover" unoptimized />
             </div>
             <div className="absolute inset-0 bg-gradient-to-br from-canvas/50 via-transparent to-transparent" />
           </div>
 
-          {/* IMAGE CONTAINER 2: Overlapping Floating Detail (Moves faster, creating depth) */}
+          {/* PILL-SHAPED COMPONENT 1: Forbes Luxury Badge (Mid-Background) */}
           <div
-            className="absolute bottom-4 right-0 w-[50%] md:w-[48%] h-[40%] md:h-[45%] rounded-xl overflow-hidden border-2 border-accent/40 shadow-xl z-10 transition-all duration-200"
-            style={{ 
-              transform: `translate3d(0, ${img2ContainerOffset}px, 0)`,
-              willChange: "transform"
-            }}
-          >
-            <div
-              className="absolute inset-[-25%] transition-transform duration-100 ease-out"
-              style={{ 
-                transform: `translate3d(0, ${img2InnerOffset}px, 0) scale(1.25)`,
-                willChange: "transform" 
-              }}
-            >
-              <Image src="/images/seahorse2.jpg" alt="Floating Seahorse Villa detail" fill sizes="256px" className="object-cover" unoptimized />
-            </div>
-            <div className="absolute inset-0 bg-gradient-to-tl from-accent/10 via-transparent to-transparent" />
-            <div className="absolute top-3 left-3 w-8 h-8 border-t-2 border-l-2 border-accent opacity-60" />
-            <div className="absolute bottom-3 right-3 w-8 h-8 border-b-2 border-r-2 border-accent opacity-60" />
-          </div>
-
-          {/* PILL-SHAPED COMPONENT 1: Forbes Luxury Badge (Slow drift) */}
-          <div
-            className="absolute top-10 right-4 z-20 glass-panel px-4 py-3 rounded-full border border-accent/25 shadow-xl transition-transform duration-200"
+            className="absolute top-10 right-4 glass-panel px-4 py-3 rounded-full border border-accent/25 shadow-xl transition-transform duration-200 ease-out"
             style={{
-              transform: `translate3d(${mousePos.x * -8}px, ${badge1Offset + mousePos.y * -8}px, 0)`,
+              transform: `translate3d(0, ${badge1Offset}px, 0)`,
               willChange: "transform",
+              zIndex: 10,
             }}
           >
             <div className="flex items-center space-x-2.5">
@@ -145,12 +102,30 @@ export default function Monograph({ mousePos }: Props) {
             </div>
           </div>
 
-          {/* PILL-SHAPED COMPONENT 2: Portfolio Growth Badge (Fast drift) */}
+          {/* IMAGE CONTAINER 2: Overlapping Floating Detail (Mid-Foreground) */}
           <div
-            className="absolute bottom-[20%] left-4 z-20 glass-panel px-4 py-3 rounded-full border border-accent/25 shadow-xl transition-transform duration-200"
-            style={{ 
+            className="absolute bottom-4 right-0 w-[50%] md:w-[48%] h-[40%] md:h-[45%] rounded-xl overflow-hidden border-2 border-accent/40 shadow-xl transition-transform duration-200 ease-out"
+            style={{
+              transform: `translate3d(0, ${img2Offset}px, 0)`,
+              willChange: "transform",
+              zIndex: 20,
+            }}
+          >
+            <div className="absolute inset-0">
+              <Image src="/images/seahorse2.jpg" alt="Floating Seahorse Villa detail" fill sizes="256px" className="object-cover" unoptimized />
+            </div>
+            <div className="absolute inset-0 bg-gradient-to-tl from-accent/10 via-transparent to-transparent" />
+            <div className="absolute top-3 left-3 w-8 h-8 border-t-2 border-l-2 border-accent opacity-60" />
+            <div className="absolute bottom-3 right-3 w-8 h-8 border-b-2 border-r-2 border-accent opacity-60" />
+          </div>
+
+          {/* PILL-SHAPED COMPONENT 2: Portfolio Growth Badge (Foremost) */}
+          <div
+            className="absolute bottom-[20%] left-4 glass-panel px-4 py-3 rounded-full border border-accent/25 shadow-xl transition-transform duration-200 ease-out"
+            style={{
               transform: `translate3d(0, ${badge2Offset}px, 0)`,
-              willChange: "transform" 
+              willChange: "transform",
+              zIndex: 30,
             }}
           >
             <div className="flex items-center space-x-2.5">

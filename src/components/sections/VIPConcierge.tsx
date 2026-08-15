@@ -38,7 +38,7 @@ export default function VIPConcierge() {
             <div className="pt-2">
               <Link
                 href={href}
-                className="inline-flex items-center space-x-2 text-[10px] uppercase tracking-[0.2em] font-plus-jakarta text-accent hover:text-white transition-colors group"
+                className="inline-flex items-center space-x-2 text-[10px] uppercase tracking-[0.2em] font-plus-jakarta text-accent hover:text-text-primary transition-colors group"
               >
                 <span>{cta}</span>
                 <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />

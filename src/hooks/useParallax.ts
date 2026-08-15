@@ -13,15 +13,15 @@ import { useEffect, useState } from "react";
  */
 export function useParallax(
   sectionRef: React.RefObject<HTMLElement | null>,
-  speed: number
+  speed: number,
+  maxOffset: number = 75
 ): number {
   const [offset, setOffset] = useState(0);
 
   useEffect(() => {
     // Disable JS calculations completely on touch/mobile to prevent scroll jitter
     const isMobile = window.innerWidth < 768;
-    const hasTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
-    if (isMobile || hasTouch) {
+    if (isMobile) {
       setOffset(0);
       return;
     }
@@ -33,14 +33,14 @@ export function useParallax(
       const viewMid = window.innerHeight / 2;
       
       const computed = (sectionMid - viewMid) * speed;
-      const clamped = Math.min(Math.max(computed, -75), 75);
+      const clamped = Math.min(Math.max(computed, -maxOffset), maxOffset);
       setOffset(clamped);
     };
 
     window.addEventListener("scroll", update, { passive: true });
     update();
     return () => window.removeEventListener("scroll", update);
-  }, [sectionRef, speed]);
+  }, [sectionRef, speed, maxOffset]);
 
   return offset;
 }

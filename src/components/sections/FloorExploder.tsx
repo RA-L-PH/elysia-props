@@ -8,7 +8,7 @@ export default function FloorExploder() {
   const exploderRef = useRef<HTMLDivElement>(null);
   const [activeFloor, setActiveFloor] = useState<number | null>(null);
 
-  // Scroll depth ratio
+  // Scroll depth ratio for desktop 3D separation animation
   const progress = useSectionProgress(exploderRef);
 
   return (
@@ -51,7 +51,7 @@ export default function FloorExploder() {
         </div>
 
         {/* RIGHT: Exploded 3D Isometric View */}
-        <div className="relative h-[480px] w-full flex items-center justify-center select-none" style={{ perspective: "1000px" }}>
+        <div className="relative h-[480px] w-full hidden lg:flex items-center justify-center select-none" style={{ perspective: "1000px" }}>
           {[
             { floor: 3, icon: <Landmark className="w-5 h-5 mx-auto text-accent mb-1" />, desc: "Sky Lounge & Helipad",     w: "w-72", h: "h-36", zBase: 40,  zActive: 140, zProg:  1 },
             { floor: 2, icon: <Award    className="w-5 h-5 mx-auto text-accent mb-1" />, desc: "Master Suites & Pool",     w: "w-80", h: "h-40", zBase: 0,   zActive: 50,  zProg:  0 },
@@ -60,7 +60,7 @@ export default function FloorExploder() {
             const isSelected = activeFloor === floor;
             
             // Separation logic: separated by scrolling or floor button clicks
-            const scrollSeparation = progress * 75 * zProg;
+            const scrollSeparation = progress * 65 * zProg;
             const clickSeparation = isSelected ? zActive : zBase;
             const translateY = clickSeparation + scrollSeparation;
 

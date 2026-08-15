@@ -1,23 +1,27 @@
 "use client";
+
 import React, { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { useParallax, useSectionProgress } from "@/hooks/useParallax";
+import { motion } from "framer-motion";
 
 export default function EditorialCuration() {
   const curationRef = useRef<HTMLDivElement>(null);
-  
-  // Parallax progress triggers
-  const progress = useSectionProgress(curationRef);
-  const imgOffset = useParallax(curationRef, -0.10);
 
   return (
     <section
       ref={curationRef}
       className="py-24 px-6 md:px-12 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-[1]"
     >
-      <div className="space-y-6 reveal-on-scroll">
+      {/* Framer motion fade and slide-up wrapper */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        className="space-y-6"
+      >
         <span className="text-xs uppercase tracking-[0.25em] text-accent font-plus-jakarta">
           The Philosophy of Living
         </span>
@@ -36,22 +40,20 @@ export default function EditorialCuration() {
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
           </Link>
         </div>
-      </div>
+      </motion.div>
 
       {/* Parallax Container scale reveal */}
-      <div
-        className="relative h-[450px] w-full rounded-lg overflow-hidden border border-accent/20 shadow-2xl reveal-on-scroll delay-200"
-        style={{
-          transform: `scale(${0.95 + progress * 0.08})`,
-          transition: "transform 0.15s cubic-bezier(0.16, 1, 0.3, 1)",
-        }}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        className="relative h-[450px] w-full rounded-lg overflow-hidden border border-accent/20 shadow-2xl"
       >
         <div
           style={{
             position: "absolute",
-            inset: "-15%",
-            transform: `translateY(${imgOffset}px)`,
-            willChange: "transform",
+            inset: 0,
           }}
         >
           <Image src="/images/prop9.jpg" alt="Architectural details" fill sizes="50vw" className="object-cover contrast-125 saturate-50" unoptimized />
@@ -63,12 +65,12 @@ export default function EditorialCuration() {
           <div className="flex justify-between items-center">
             <div>
               <p className="text-[10px] tracking-widest font-plus-jakarta uppercase text-accent">Signature Project</p>
-              <h4 className="font-cormorant text-lg text-white">The Palm Crescent Mansions</h4>
+              <h4 className="font-cormorant text-lg text-text-primary">The Palm Crescent Mansions</h4>
             </div>
             <span className="text-xs font-italiana text-accent">Q4 2027</span>
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }
