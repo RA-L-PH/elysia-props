@@ -63,8 +63,19 @@ async function proxy(req: NextRequest): Promise<Response> {
       return jsonError(400, "Content-Type must be application/json.");
     }
     const origin = req.headers.get("origin");
-    if (origin && !ALLOWED_ORIGINS.has(origin)) {
-      return jsonError(403, "Forbidden: origin not allowed.");
+    const allowedEnvOrigins = (process.env.ALLOWED_ORIGINS || "")
+      .split(",")
+      .map((o) => o.trim())
+      .filter(Boolean);
+
+    const isAllowed =
+      !origin ||
+      ALLOWED_ORIGINS.has(origin) ||
+      allowedEnvOrigins.includes(origin) ||
+      origin.endsWith(".vercel.app");
+
+    if (!isAllowed) {
+      return jsonError(403, `Forbidden: origin not allowed (${origin}).`);
     }
   }
 
