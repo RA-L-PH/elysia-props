@@ -9,7 +9,7 @@ export const connectDatabase = async (): Promise<boolean> => {
   try {
     mongoose.set("strictQuery", true);
     await mongoose.connect(uri, {
-      dbName: "elysia-requirements",
+      dbName: "pulsestage-requirements",
       serverSelectionTimeoutMS: 10000,
     });
     isConnected = true;
