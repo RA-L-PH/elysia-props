@@ -1,9 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
-import { ShieldCheck, FileText, Mail, LifeBuoy } from "lucide-react";
+import { ShieldCheck, FileText, Mail, LifeBuoy, Code2 } from "lucide-react";
 import { NewsletterForm } from "./NewsletterForm";
 
 const legal = [
+  { href: "/developer", label: "Developer Specs", icon: Code2 },
   { href: "/terms", label: "Terms & Conditions", icon: ShieldCheck },
   { href: "/privacy", label: "Privacy Policy", icon: FileText },
   { href: "/contact", label: "Contact & Support", icon: LifeBuoy },
