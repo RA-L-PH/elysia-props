@@ -8,9 +8,9 @@ export const connectDatabase = async (): Promise<boolean> => {
 
   try {
     mongoose.set("strictQuery", true);
-    mongoose.set("bufferCommands", false);
     await mongoose.connect(uri, {
-      serverSelectionTimeoutMS: 2500,
+      dbName: "elysia-requirements",
+      serverSelectionTimeoutMS: 10000,
     });
     isConnected = true;
     isInMemoryFallback = false;
