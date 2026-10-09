@@ -210,7 +210,7 @@ export const inMemoryStore = {
           r.description.toLowerCase().includes(q) ||
           r.location.city.toLowerCase().includes(q) ||
           r.location.venue.toLowerCase().includes(q) ||
-          r.tags?.some((t) => t.toLowerCase().includes(q))
+          r.tags?.some((t: string) => t.toLowerCase().includes(q))
       );
     }
 

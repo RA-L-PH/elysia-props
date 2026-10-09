@@ -10,7 +10,7 @@
     "dev": "concurrently -k -p \"[{name}]\" -n \"API,WEB\" -c \"cyan.bold,magenta.bold\" \"npm run dev --workspace=@elysia/api\" \"npm run dev --workspace=@elysia/web\"",
     "dev:api": "npm run dev --workspace=@elysia/api",
     "dev:web": "npm run dev --workspace=@elysia/web",
-    "build": "npm run build --workspaces --if-present",
+    "build": "npm run build --workspace=@elysia/shared && npm run build --workspaces --if-present",
     "seed": "npm run seed --workspace=@elysia/api",
     "start": "concurrently -k -p \"[{name}]\" -n \"API,WEB\" -c \"cyan.bold,magenta.bold\" \"npm run start --workspace=@elysia/api\" \"npm run start --workspace=@elysia/web\""
   },

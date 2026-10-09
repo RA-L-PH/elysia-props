@@ -115,7 +115,7 @@ export const sendNewsletter = async (
     // so a stale selection can't mail arbitrary addresses.
     let targets = subscribers;
     if (recipients) {
-      const wanted = new Set(recipients.map((r) => r.toLowerCase()));
+      const wanted = new Set(recipients.map((r: string) => r.toLowerCase()));
       targets = subscribers.filter((s) => wanted.has(s.email.toLowerCase()));
       if (targets.length === 0) {
         res.status(400).json({
