@@ -1,29 +1,20 @@
 {
-  "name": "elysia-props",
-  "version": "0.1.0",
+  "name": "elysia-monorepo",
+  "version": "1.0.0",
   "private": true,
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint"
-  },
-  "dependencies": {
-    "framer-motion": "^13.1.0",
-    "lenis": "^1.3.26",
-    "lucide-react": "^1.31.0",
-    "next": "16.3.1",
-    "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "dev": "concurrently -k -p \"[{name}]\" -n \"API,WEB\" -c \"cyan.bold,magenta.bold\" \"npm run dev --workspace=@elysia/api\" \"npm run dev --workspace=@elysia/web\"",
+    "dev:api": "npm run dev --workspace=@elysia/api",
+    "dev:web": "npm run dev --workspace=@elysia/web",
+    "build": "npm run build --workspaces --if-present",
+    "seed": "npm run seed --workspace=@elysia/api",
+    "start": "concurrently -k -p \"[{name}]\" -n \"API,WEB\" -c \"cyan.bold,magenta.bold\" \"npm run start --workspace=@elysia/api\" \"npm run start --workspace=@elysia/web\""
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "16.3.1",
-    "tailwindcss": "^4",
-    "typescript": "^5"
+    "concurrently": "^9.1.2"
   }
 }

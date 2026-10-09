@@ -1,0 +1,140 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --background: 45 60% 98%;
+    --foreground: 0 0% 0%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 0%;
+    --primary: 358 100% 67%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 48 100% 67%;
+    --secondary-foreground: 0 0% 0%;
+    --accent: 183 100% 50%;
+    --accent-foreground: 0 0% 0%;
+    --border: 0 0% 0%;
+    --ring: 0 0% 0%;
+    --radius: 1rem;
+  }
+}
+
+body {
+  background-color: #F8F5EE;
+  color: #000000;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  min-height: 100vh;
+}
+
+/* Neubrutalism Global Helpers */
+.brutal-border {
+  border: 3px solid #000000;
+}
+
+.brutal-shadow {
+  box-shadow: 5px 5px 0px #000000;
+}
+
+.brutal-shadow-sm {
+  box-shadow: 3px 3px 0px #000000;
+}
+
+.brutal-shadow-lg {
+  box-shadow: 8px 8px 0px #000000;
+}
+
+.brutal-btn {
+  border: 3px solid #000000;
+  box-shadow: 4px 4px 0px #000000;
+  transition: all 0.15s ease-in-out;
+  font-weight: 800;
+}
+
+.brutal-btn:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px #000000;
+}
+
+.brutal-btn:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0px 0px 0px #000000;
+}
+
+/* ── Neubrutalist Scrollbar (medium) ──────────────────────────
+   Square pop-color thumb, thick black border, cream track.
+   Firefox mirrors this via scrollbar-width/color below. */
+::-webkit-scrollbar {
+  width: 20px;
+  height: 20px;
+}
+::-webkit-scrollbar-track {
+  background: #FFFDF8;
+  border-left: 3px solid #000000;
+}
+::-webkit-scrollbar-thumb {
+  background: #FFDE59;
+  border: 3px solid #000000;
+  border-radius: 0;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #FF5757;
+}
+::-webkit-scrollbar-thumb:active {
+  background: #00F0FF;
+}
+::-webkit-scrollbar-corner {
+  background: #FFFDF8;
+  border-top: 3px solid #000000;
+  border-left: 3px solid #000000;
+}
+@supports (scrollbar-width: thin) {
+  * {
+    scrollbar-width: auto;
+    scrollbar-color: #FFDE59 #FFFDF8;
+  }
+}
+
+/* ── Neubrutalist Sonner toasts ────────────────────────────────
+   Sonner injects its stylesheet at runtime (after this file), so
+   equal-specificity rules would lose the tie. Every override below
+   carries one extra selector level (html / theme attr) to win. */
+html [data-sonner-toaster] {
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+html [data-sonner-toaster][data-sonner-theme] {
+  /* Pop palette instead of sonner's pastels */
+  --normal-bg: #fffdf8;
+  --normal-border: #000000;
+  --normal-text: #000000;
+  --success-bg: #7ed957;
+  --success-border: #000000;
+  --success-text: #000000;
+  --warning-bg: #ffde59;
+  --warning-border: #000000;
+  --warning-text: #000000;
+  --error-bg: #ff5757;
+  --error-border: #000000;
+  --error-text: #000000;
+  --info-bg: #00f0ff;
+  --info-border: #000000;
+  --info-text: #000000;
+  --border-radius: 14px;
+}
+
+/* Thick black border + zero-blur offset shadow */
+html [data-sonner-toast][data-styled='true'] {
+  border: 3px solid #000000;
+  box-shadow: 5px 5px 0 #000000;
+  font-weight: 800;
+}
+
+html [data-sonner-toast][data-styled='true'] [data-title] {
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+html [data-sonner-toast][data-styled='true'] [data-description] {
+  font-weight: 700;
+  color: #000000;
+}
