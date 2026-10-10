@@ -531,18 +531,29 @@ export function AuthForm({ mode, next }: AuthFormProps) {
             </div>
 
             <div>
-              <label className="block text-xs font-black mb-1.5 uppercase">
+              <label htmlFor="si-password" className="block text-xs font-black mb-1.5 uppercase">
                 Password <span className="text-[#FF5757]">*</span>
               </label>
-              <input
-                type="password"
-                required
-                autoComplete="current-password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Your password"
-                className={inputCls}
-              />
+              <div className="relative">
+                <input
+                  id="si-password"
+                  type={showPw ? "text" : "password"}
+                  required
+                  autoComplete="current-password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Your password"
+                  className={`${inputCls} pr-11`}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPw((v) => !v)}
+                  aria-label={showPw ? "Hide password" : "Show password"}
+                  className="absolute right-1.5 top-1/2 -translate-y-1/2 p-1.5 rounded-lg border-2 border-black bg-[#FFDE59] shadow-[1px_1px_0px_#000] hover:translate-x-[0.5px] hover:translate-y-[calc(-50%_+_0.5px)] hover:shadow-none transition-all"
+                >
+                  {showPw ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
+              </div>
               <div className="flex justify-end mt-1.5">
                 <Link
                   href="/forgot-password"
