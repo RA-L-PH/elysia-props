@@ -29,7 +29,7 @@ const MUTATIONS = new Set(["POST", "PUT", "PATCH", "DELETE"]);
 const ALLOWED_ORIGINS = new Set(
   (
     process.env.ALLOWED_ORIGINS ||
-    "http://localhost:3000,http://127.0.0.1:3000,http://192.168.0.110:3000,http://192.168.0.110"
+    "http://localhost:3000,http://127.0.0.1:3000,http://192.168.0.110:3000,http://localhost:3001,http://127.0.0.1:3001,http://192.168.0.110:3001,http://192.168.0.110"
   )
     .split(",")
     .map((o) => o.trim())

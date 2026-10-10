@@ -186,6 +186,11 @@ export const login = async (req: Request, res: Response, next: NextFunction): Pr
 
     const token = await startSession(user);
     setSessionCookie(res, token);
+    res.json({
+      success: true,
+      data: publicUser(user),
+      message: "Signed in successfully.",
+    });
   } catch (error) {
     console.error("[AUTH] Login error:", error);
     if ((error as Error).message?.includes("buffering timed out") || (error as Error).name === "MongooseError" || (error as Error).name === "MongoServerError") {
